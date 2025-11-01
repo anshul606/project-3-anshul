@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import SearchBar from "../search/SearchBar";
@@ -31,10 +31,13 @@ const Header = ({ onMenuClick, onSearch, onShowKeyboardShortcuts }) => {
     }
   };
 
-  const handleSearch = (query) => {
-    // Navigate to search page with query
-    navigate(`/search?q=${encodeURIComponent(query)}`);
-  };
+  const handleSearch = useCallback(
+    (query) => {
+      // Navigate to search page with query
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    },
+    [navigate]
+  );
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-40">

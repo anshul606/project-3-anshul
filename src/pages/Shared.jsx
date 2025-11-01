@@ -85,18 +85,6 @@ const Shared = () => {
     }
   };
 
-  const handleEdit = (snippet) => {
-    navigate(`/snippets/${snippet.id}/edit`);
-  };
-
-  const handleDelete = async (snippetId) => {
-    setToast({
-      message: "You cannot delete snippets shared with you",
-      type: "error",
-    });
-    setTimeout(() => setToast(null), 3000);
-  };
-
   return (
     <div>
       <div className="flex items-center gap-3 mb-6">
@@ -121,8 +109,8 @@ const Shared = () => {
         <SnippetList
           snippets={sharedSnippets}
           onCopy={handleCopy}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
+          onEdit={null}
+          onDelete={null}
           viewMode="grid"
         />
       )}
