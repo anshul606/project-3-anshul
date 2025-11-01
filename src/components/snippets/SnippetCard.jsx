@@ -105,13 +105,13 @@ const SnippetCard = ({
     return (
       <div
         onClick={handleCardClick}
-        className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer mb-2"
+        className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer mb-2"
       >
         <div className="flex items-start justify-between gap-4">
           {/* Left section: Title and metadata */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
-              <h3 className="text-lg font-semibold text-gray-900 truncate">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate">
                 {snippet.title}
               </h3>
               {snippet.sharing?.isShared && (
@@ -140,7 +140,7 @@ const SnippetCard = ({
             </div>
 
             {snippet.description && (
-              <p className="text-sm text-gray-600 mb-2 line-clamp-1">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
                 {snippet.description}
               </p>
             )}
@@ -183,7 +183,7 @@ const SnippetCard = ({
               </div>
             )}
 
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Updated {formatDate(snippet.updatedAt)}
             </p>
           </div>
@@ -192,7 +192,7 @@ const SnippetCard = ({
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopy}
-              className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+              className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded transition-colors"
               title="Copy code"
             >
               <svg
@@ -213,7 +213,7 @@ const SnippetCard = ({
             {onEdit && (
               <button
                 onClick={handleEdit}
-                className="p-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded transition-colors"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded transition-colors"
                 title="Edit snippet"
               >
                 <svg
@@ -239,7 +239,7 @@ const SnippetCard = ({
                 className={`p-2 rounded transition-colors ${
                   showDeleteConfirm
                     ? "text-white bg-red-600 hover:bg-red-700"
-                    : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+                    : "text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30"
                 } ${isDeleting ? "opacity-50 cursor-not-allowed" : ""}`}
                 title={
                   showDeleteConfirm
@@ -294,12 +294,12 @@ const SnippetCard = ({
   return (
     <div
       onClick={handleCardClick}
-      className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer flex flex-col h-full"
+      className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer flex flex-col h-full"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2 flex-1 mr-2">
-          <h3 className="text-lg font-semibold text-gray-900 truncate">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate">
             {snippet.title}
           </h3>
           {snippet.sharing?.isShared && (
@@ -330,14 +330,14 @@ const SnippetCard = ({
 
       {/* Description */}
       {snippet.description && (
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
           {snippet.description}
         </p>
       )}
 
       {/* Code Preview */}
-      <div className="bg-gray-900 rounded p-3 mb-3 flex-1 overflow-hidden">
-        <pre className="text-xs text-gray-300 font-mono overflow-hidden">
+      <div className="bg-gray-900 dark:bg-gray-950 rounded p-3 mb-3 flex-1 overflow-hidden">
+        <pre className="text-xs text-gray-300 dark:text-gray-400 font-mono overflow-hidden">
           <code className="line-clamp-3">{getCodePreview()}</code>
         </pre>
       </div>
@@ -381,14 +381,16 @@ const SnippetCard = ({
       )}
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-3 border-t border-gray-200">
-        <p className="text-xs text-gray-500">{formatDate(snippet.updatedAt)}</p>
+      <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          {formatDate(snippet.updatedAt)}
+        </p>
 
         {/* Action buttons */}
         <div className="flex items-center gap-1">
           <button
             onClick={handleCopy}
-            className="p-1.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+            className="p-1.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded transition-colors"
             title="Copy code"
           >
             <svg
@@ -409,7 +411,7 @@ const SnippetCard = ({
           {onEdit && (
             <button
               onClick={handleEdit}
-              className="p-1.5 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded transition-colors"
+              className="p-1.5 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded transition-colors"
               title="Edit snippet"
             >
               <svg
@@ -435,7 +437,7 @@ const SnippetCard = ({
               className={`p-1.5 rounded transition-colors ${
                 showDeleteConfirm
                   ? "text-white bg-red-600 hover:bg-red-700"
-                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+                  : "text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30"
               } ${isDeleting ? "opacity-50 cursor-not-allowed" : ""}`}
               title={
                 showDeleteConfirm ? "Click again to confirm" : "Delete snippet"

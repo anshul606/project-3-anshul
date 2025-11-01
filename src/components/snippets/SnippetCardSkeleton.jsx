@@ -8,7 +8,7 @@
 const SnippetCardSkeleton = ({ viewMode = "grid" }) => {
   if (viewMode === "list") {
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-4 mb-2 animate-pulse">
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-2 animate-pulse">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
@@ -35,7 +35,7 @@ const SnippetCardSkeleton = ({ viewMode = "grid" }) => {
 
   // Grid view skeleton
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 animate-pulse flex flex-col h-full">
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 animate-pulse flex flex-col h-full">
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="h-6 bg-gray-200 rounded w-3/4"></div>

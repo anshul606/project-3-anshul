@@ -88,20 +88,26 @@ const Shared = () => {
   return (
     <div>
       <div className="flex items-center gap-3 mb-6">
-        <FiShare2 className="w-8 h-8 text-blue-600" />
-        <h1 className="text-3xl font-bold text-gray-900">Shared With Me</h1>
+        <FiShare2 className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          Shared With Me
+        </h1>
       </div>
 
       {loading ? (
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading shared snippets...</p>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">
+            Loading shared snippets...
+          </p>
         </div>
       ) : sharedSnippets.length === 0 ? (
-        <div className="bg-white rounded-lg shadow p-8 text-center">
-          <FiShare2 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600 mb-2">No shared snippets yet</p>
-          <p className="text-sm text-gray-500">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
+          <FiShare2 className="w-16 h-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+          <p className="text-gray-600 dark:text-gray-400 mb-2">
+            No shared snippets yet
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-500">
             Snippets that others share with you will appear here
           </p>
         </div>

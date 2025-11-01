@@ -186,8 +186,10 @@ const TagInput = ({
     <div className="w-full">
       <div
         className={`w-full px-3 py-2 border ${
-          error || validationError ? "border-red-300" : "border-gray-300"
-        } rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent bg-white`}
+          error || validationError
+            ? "border-red-300 dark:border-red-600"
+            : "border-gray-300 dark:border-gray-600"
+        } rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent bg-white dark:bg-gray-700`}
       >
         {/* Tags Display */}
         {tags.length > 0 && (
@@ -235,7 +237,7 @@ const TagInput = ({
             onKeyDown={handleKeyDown}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            className="w-full focus:outline-none text-sm"
+            className="w-full focus:outline-none text-sm text-gray-900 dark:text-gray-100"
             placeholder={tags.length === 0 ? placeholder : ""}
             disabled={tags.length >= maxTags}
           />
@@ -244,7 +246,7 @@ const TagInput = ({
           {showSuggestions && filteredSuggestions.length > 0 && (
             <div
               ref={suggestionsRef}
-              className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-48 overflow-y-auto"
+              className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg max-h-48 overflow-y-auto"
             >
               {filteredSuggestions.map((suggestion, index) => (
                 <button
@@ -253,8 +255,8 @@ const TagInput = ({
                   onClick={() => handleSuggestionClick(suggestion)}
                   className={`w-full text-left px-3 py-2 text-sm transition-colors ${
                     index === selectedSuggestionIndex
-                      ? "bg-blue-50 text-blue-900"
-                      : "hover:bg-gray-100 text-gray-900"
+                      ? "bg-blue-50 dark:bg-blue-900/30 text-blue-900 dark:text-blue-100"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
                   }`}
                 >
                   <span
@@ -273,11 +275,13 @@ const TagInput = ({
 
       {/* Error Message */}
       {(error || validationError) && (
-        <p className="mt-1 text-sm text-red-600">{error || validationError}</p>
+        <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+          {error || validationError}
+        </p>
       )}
 
       {/* Helper Text */}
-      <p className="mt-1 text-xs text-gray-500">
+      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
         Press Enter or comma to add a tag. Tags can only contain letters,
         numbers, and hyphens. {tags.length}/{maxTags} tags
       </p>

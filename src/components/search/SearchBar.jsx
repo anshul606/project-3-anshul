@@ -158,8 +158,8 @@ const SearchBar = ({
 
       {/* Search hint (shown when focused and empty) */}
       {isFocused && !searchValue && (
-        <div className="absolute top-full left-0 right-0 mt-2 p-3 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-          <p className="text-sm text-gray-600">
+        <div className="absolute top-full left-0 right-0 mt-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Search across titles, descriptions, code content, and tags
           </p>
           <div className="mt-2 flex flex-wrap gap-2">

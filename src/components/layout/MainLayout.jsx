@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import useKeyboard from "../../hooks/useKeyboard";
@@ -8,14 +8,11 @@ import { KeyboardShortcutsHelp } from "../shared";
 /**
  * MainLayout component with header, sidebar, and content area
  * Provides responsive layout with collapsible sidebar for tablet/mobile
- * @param {Object} props - Component props
- * @param {Function} props.onSearch - Optional search callback
  */
-const MainLayout = ({ onSearch }) => {
+const MainLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleMenuClick = () => {
     setSidebarOpen(!sidebarOpen);
@@ -23,12 +20,6 @@ const MainLayout = ({ onSearch }) => {
 
   const handleCloseSidebar = () => {
     setSidebarOpen(false);
-  };
-
-  const handleSearch = (query, filters) => {
-    if (onSearch) {
-      onSearch(query, filters);
-    }
   };
 
   // Global keyboard shortcuts - memoize to prevent infinite loops
@@ -49,11 +40,10 @@ const MainLayout = ({ onSearch }) => {
   useKeyboard(keyboardShortcuts);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       {/* Header */}
       <Header
         onMenuClick={handleMenuClick}
-        onSearch={handleSearch}
         onShowKeyboardShortcuts={() => setShowShortcutsHelp(true)}
       />
 

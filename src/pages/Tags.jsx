@@ -74,11 +74,13 @@ const Tags = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Tags</h1>
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        Tags
+      </h1>
 
       {tags.length === 0 ? (
-        <div className="bg-white rounded-lg shadow p-8 text-center">
-          <p className="text-gray-600">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
+          <p className="text-gray-600 dark:text-gray-400">
             No tags found. Add tags to your snippets to organize them.
           </p>
         </div>
@@ -86,8 +88,8 @@ const Tags = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Tag list */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-4">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
                 All Tags ({tags.length})
               </h2>
               <div className="space-y-2">
@@ -97,8 +99,8 @@ const Tags = () => {
                     onClick={() => setSelectedTag(tag)}
                     className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
                       selectedTag === tag
-                        ? "bg-blue-50 text-blue-700 font-medium"
-                        : "text-gray-700 hover:bg-gray-100"
+                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                     }`}
                   >
                     <span className="flex justify-between items-center">
@@ -117,7 +119,7 @@ const Tags = () => {
           <div className="lg:col-span-3">
             {selectedTag ? (
               <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
                   Snippets tagged with "{selectedTag}" (
                   {filteredSnippets.length})
                 </h2>
@@ -130,8 +132,10 @@ const Tags = () => {
                 />
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow p-8 text-center">
-                <p className="text-gray-600">Select a tag to view snippets</p>
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
+                <p className="text-gray-600 dark:text-gray-400">
+                  Select a tag to view snippets
+                </p>
               </div>
             )}
           </div>

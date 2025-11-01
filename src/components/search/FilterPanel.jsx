@@ -83,12 +83,12 @@ const FilterPanel = ({
     (filters.dateRange.end ? 1 : 0);
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm">
       {/* Filter Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-2">
           <svg
-            className="h-5 w-5 text-gray-500"
+            className="h-5 w-5 text-gray-500 dark:text-gray-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -100,7 +100,9 @@ const FilterPanel = ({
               d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
             />
           </svg>
-          <h3 className="font-semibold text-gray-900">Filters</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+            Filters
+          </h3>
           {activeFilterCount > 0 && (
             <span className="px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
               {activeFilterCount}
@@ -149,10 +151,10 @@ const FilterPanel = ({
           {/* Language Filter */}
           {availableLanguages.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Programming Language
               </label>
-              <div className="max-h-48 overflow-y-auto space-y-2 border border-gray-200 rounded-md p-2">
+              <div className="max-h-48 overflow-y-auto space-y-2 border border-gray-200 dark:border-gray-700 rounded-md p-2">
                 {availableLanguages.map((language) => (
                   <label
                     key={language}
@@ -176,10 +178,10 @@ const FilterPanel = ({
           {/* Tags Filter */}
           {availableTags.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Tags
               </label>
-              <div className="max-h-48 overflow-y-auto space-y-2 border border-gray-200 rounded-md p-2">
+              <div className="max-h-48 overflow-y-auto space-y-2 border border-gray-200 dark:border-gray-700 rounded-md p-2">
                 {availableTags.map((tag) => (
                   <label
                     key={tag}
@@ -202,28 +204,32 @@ const FilterPanel = ({
 
           {/* Date Range Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Date Range
             </label>
             <div className="space-y-3">
               <div>
-                <label className="block text-xs text-gray-600 mb-1">From</label>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                  From
+                </label>
                 <input
                   type="date"
                   value={filters.dateRange.start || ""}
                   onChange={(e) =>
                     handleDateRangeChange("start", e.target.value)
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-600 mb-1">To</label>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                  To
+                </label>
                 <input
                   type="date"
                   value={filters.dateRange.end || ""}
                   onChange={(e) => handleDateRangeChange("end", e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
             </div>

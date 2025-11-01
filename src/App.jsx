@@ -5,8 +5,10 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { PreferencesProvider } from "./contexts/PreferencesContext";
 import { SnippetProvider } from "./contexts/SnippetContext";
 import { CollectionProvider } from "./contexts/CollectionContext";
+import { ErrorBoundary } from "./components/shared";
 import LoginForm from "./components/auth/LoginForm";
 import RegisterForm from "./components/auth/RegisterForm";
 import PasswordResetForm from "./components/auth/PasswordResetForm";
@@ -30,6 +32,7 @@ import CollectionDemo from "./pages/CollectionDemo";
 import TaggingDemo from "./pages/TaggingDemo";
 import SharingDemo from "./pages/SharingDemo";
 import ImportExportDemo from "./pages/ImportExportDemo";
+import UIComponentsDemo from "./pages/UIComponentsDemo";
 import DemoHub from "./pages/DemoHub";
 
 // Wrapper component to provide SnippetContext and CollectionContext with userId
@@ -44,73 +47,87 @@ const SnippetProviderWrapper = ({ children }) => {
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/reset-password" element={<PasswordResetForm />} />
+    <ErrorBoundary>
+      <Router>
+        <AuthProvider>
+          <PreferencesProvider>
+            <Routes>
+              {/* Public routes */}
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/reset-password" element={<PasswordResetForm />} />
 
-          {/* Demo routes (outside main layout) */}
-          <Route path="/demos" element={<DemoHub />} />
-          <Route path="/demo/code-display" element={<CodeDisplayDemo />} />
-          <Route
-            path="/demo/snippet-list"
-            element={
-              <AuthGuard>
-                <SnippetProviderWrapper>
-                  <SnippetListDemo />
-                </SnippetProviderWrapper>
-              </AuthGuard>
-            }
-          />
-          <Route path="/demo/snippet-detail" element={<SnippetDetailDemo />} />
-          <Route path="/demo/search" element={<SearchDemo />} />
-          <Route path="/demo/collections" element={<CollectionDemo />} />
-          <Route
-            path="/demo/tagging"
-            element={
-              <AuthGuard>
-                <SnippetProviderWrapper>
-                  <TaggingDemo />
-                </SnippetProviderWrapper>
-              </AuthGuard>
-            }
-          />
-          <Route path="/demo/sharing" element={<SharingDemo />} />
-          <Route path="/demo/import-export" element={<ImportExportDemo />} />
+              {/* Demo routes (outside main layout) */}
+              <Route path="/demos" element={<DemoHub />} />
+              <Route path="/demo/code-display" element={<CodeDisplayDemo />} />
+              <Route
+                path="/demo/snippet-list"
+                element={
+                  <AuthGuard>
+                    <SnippetProviderWrapper>
+                      <SnippetListDemo />
+                    </SnippetProviderWrapper>
+                  </AuthGuard>
+                }
+              />
+              <Route
+                path="/demo/snippet-detail"
+                element={<SnippetDetailDemo />}
+              />
+              <Route path="/demo/search" element={<SearchDemo />} />
+              <Route path="/demo/collections" element={<CollectionDemo />} />
+              <Route
+                path="/demo/tagging"
+                element={
+                  <AuthGuard>
+                    <SnippetProviderWrapper>
+                      <TaggingDemo />
+                    </SnippetProviderWrapper>
+                  </AuthGuard>
+                }
+              />
+              <Route path="/demo/sharing" element={<SharingDemo />} />
+              <Route
+                path="/demo/import-export"
+                element={<ImportExportDemo />}
+              />
+              <Route
+                path="/demo/ui-components"
+                element={<UIComponentsDemo />}
+              />
 
-          {/* Protected routes with MainLayout */}
-          <Route
-            element={
-              <AuthGuard>
-                <SnippetProviderWrapper>
-                  <MainLayout />
-                </SnippetProviderWrapper>
-              </AuthGuard>
-            }
-          >
-            <Route path="/" element={<AllSnippets />} />
-            <Route
-              path="/collections/:collectionId"
-              element={<Collections />}
-            />
-            <Route path="/search" element={<Search />} />
-            <Route path="/tags" element={<Tags />} />
-            <Route path="/shared" element={<Shared />} />
-            <Route path="/import-export" element={<ImportExport />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/snippets/new" element={<CreateSnippet />} />
-            <Route path="/snippets/:id" element={<SnippetDetailPage />} />
-            <Route path="/snippets/:id/edit" element={<EditSnippet />} />
-          </Route>
+              {/* Protected routes with MainLayout */}
+              <Route
+                element={
+                  <AuthGuard>
+                    <SnippetProviderWrapper>
+                      <MainLayout />
+                    </SnippetProviderWrapper>
+                  </AuthGuard>
+                }
+              >
+                <Route path="/" element={<AllSnippets />} />
+                <Route
+                  path="/collections/:collectionId"
+                  element={<Collections />}
+                />
+                <Route path="/search" element={<Search />} />
+                <Route path="/tags" element={<Tags />} />
+                <Route path="/shared" element={<Shared />} />
+                <Route path="/import-export" element={<ImportExport />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/snippets/new" element={<CreateSnippet />} />
+                <Route path="/snippets/:id" element={<SnippetDetailPage />} />
+                <Route path="/snippets/:id/edit" element={<EditSnippet />} />
+              </Route>
 
-          {/* Catch all */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </AuthProvider>
-    </Router>
+              {/* Catch all */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </PreferencesProvider>
+        </AuthProvider>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

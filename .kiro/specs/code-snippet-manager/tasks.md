@@ -197,7 +197,7 @@
   - Add debouncing to search input (300ms delay)
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5_
 
-- [ ] 21. Create user preferences and settings
+- [x] 21. Create user preferences and settings
 
   - Create SettingsPage.jsx with user preferences form
   - Add theme preference (light/dark mode) toggle

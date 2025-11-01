@@ -85,15 +85,15 @@ const Collections = () => {
         <div>
           <button
             onClick={() => navigate("/")}
-            className="text-sm text-gray-600 hover:text-gray-900 mb-2"
+            className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-2"
           >
             ← Back to all snippets
           </button>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             {collection?.name || "Collection"}
           </h1>
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           {collectionSnippets.length}{" "}
           {collectionSnippets.length === 1 ? "snippet" : "snippets"}
         </p>
@@ -102,11 +102,13 @@ const Collections = () => {
       {loading ? (
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading snippets...</p>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">
+            Loading snippets...
+          </p>
         </div>
       ) : collectionSnippets.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-lg shadow">
-          <p className="text-gray-600 mb-4">
+        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow">
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
             No snippets in this collection yet.
           </p>
           <button

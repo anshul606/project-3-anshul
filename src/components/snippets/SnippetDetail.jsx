@@ -21,7 +21,7 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
   if (!snippet) {
     return (
       <div className="flex items-center justify-center h-full">
-        <p className="text-gray-500">No snippet selected</p>
+        <p className="text-gray-500 dark:text-gray-400">No snippet selected</p>
       </div>
     );
   }
@@ -92,13 +92,13 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
   const sharedWith = snippet.sharing?.sharedWith || [];
 
   return (
-    <div className="h-full flex flex-col bg-white">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800">
       {/* Header */}
-      <div className="border-b border-gray-200 px-6 py-4">
+      <div className="border-b border-gray-200 dark:border-gray-700 px-6 py-4">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {snippet.title}
               </h1>
               {isShared && (
@@ -118,8 +118,8 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-4 text-sm text-gray-600">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-gray-100 text-gray-800 font-mono">
+            <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-mono">
                 {snippet.language}
               </span>
               {snippet.tags && snippet.tags.length > 0 && (
@@ -270,7 +270,7 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
             {onClose && (
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors ml-2"
                 aria-label="Close"
               >
                 <svg
@@ -295,16 +295,20 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
         {/* Description */}
         {snippet.description && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-gray-700 mb-2">
+            <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Description
             </h2>
-            <p className="text-gray-600">{snippet.description}</p>
+            <p className="text-gray-600 dark:text-gray-400">
+              {snippet.description}
+            </p>
           </div>
         )}
 
         {/* Code Display */}
         <div className="mb-6">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">Code</h2>
+          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Code
+          </h2>
           <CodeDisplay
             code={snippet.code}
             language={snippet.language}
@@ -315,10 +319,10 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
         {/* Usage Notes */}
         {snippet.metadata?.usageNotes && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-gray-700 mb-2">
+            <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Usage Notes
             </h2>
-            <p className="text-gray-600 whitespace-pre-wrap">
+            <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap">
               {snippet.metadata.usageNotes}
             </p>
           </div>
@@ -327,10 +331,10 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
         {/* Dependencies */}
         {snippet.metadata?.dependencies && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-gray-700 mb-2">
+            <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Dependencies
             </h2>
-            <p className="text-gray-600 whitespace-pre-wrap">
+            <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap">
               {snippet.metadata.dependencies}
             </p>
           </div>
@@ -338,32 +342,42 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
 
         {/* Metadata */}
         <div className="mb-6">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">Metadata</h2>
-          <div className="bg-gray-50 rounded-lg p-4 space-y-2 text-sm">
+          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Metadata
+          </h2>
+          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 space-y-2 text-sm">
             {snippet.metadata?.author && (
               <div className="flex justify-between">
-                <span className="text-gray-600">Author:</span>
-                <span className="text-gray-900 font-medium">
+                <span className="text-gray-600 dark:text-gray-400">
+                  Author:
+                </span>
+                <span className="text-gray-900 dark:text-gray-100 font-medium">
                   {snippet.metadata.author}
                 </span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-gray-600">Created:</span>
-              <span className="text-gray-900">
+              <span className="text-gray-600 dark:text-gray-400">Created:</span>
+              <span className="text-gray-900 dark:text-gray-100">
                 {formatDate(snippet.createdAt)}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Last Updated:</span>
-              <span className="text-gray-900">
+              <span className="text-gray-600 dark:text-gray-400">
+                Last Updated:
+              </span>
+              <span className="text-gray-900 dark:text-gray-100">
                 {formatDate(snippet.updatedAt)}
               </span>
             </div>
             {snippet.lastEditedBy && (
               <div className="flex justify-between">
-                <span className="text-gray-600">Last Edited By:</span>
-                <span className="text-gray-900">{snippet.lastEditedBy}</span>
+                <span className="text-gray-600 dark:text-gray-400">
+                  Last Edited By:
+                </span>
+                <span className="text-gray-900 dark:text-gray-100">
+                  {snippet.lastEditedBy}
+                </span>
               </div>
             )}
           </div>
@@ -372,17 +386,19 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
         {/* Sharing Information */}
         {isShared && sharedWith.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-gray-700 mb-2">
+            <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Shared With
             </h2>
-            <div className="bg-blue-50 rounded-lg p-4">
+            <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4">
               <ul className="space-y-2">
                 {sharedWith.map((share, index) => (
                   <li
                     key={index}
                     className="flex items-center justify-between text-sm"
                   >
-                    <span className="text-gray-900">{share.userId}</span>
+                    <span className="text-gray-900 dark:text-gray-100">
+                      {share.userId}
+                    </span>
                     <span
                       className={`px-2 py-1 rounded text-xs font-medium ${
                         share.permission === "write"
@@ -424,7 +440,7 @@ const SnippetDetail = ({ snippet, onEdit, onDelete, onClose, onShare }) => {
           </>
         }
       >
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           Are you sure you want to delete "{snippet.title}"? This action cannot
           be undone.
         </p>

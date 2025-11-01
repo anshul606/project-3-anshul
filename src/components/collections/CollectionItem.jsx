@@ -109,9 +109,13 @@ const CollectionItem = ({
       <div
         className={`
           flex items-center gap-2 py-2 px-3 cursor-pointer
-          hover:bg-gray-100
+          hover:bg-gray-100 dark:hover:bg-gray-700
           transition-colors duration-150
-          ${isSelected ? "bg-blue-50 border-l-4 border-blue-500" : ""}
+          ${
+            isSelected
+              ? "bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500"
+              : ""
+          }
         `}
         style={indentStyle}
         onClick={handleClick}
@@ -125,13 +129,13 @@ const CollectionItem = ({
         {hasChildren && (
           <button
             onClick={handleToggle}
-            className="p-1 hover:bg-gray-200 rounded transition-colors"
+            className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors"
             aria-label={isExpanded ? "Collapse" : "Expand"}
           >
             {isExpanded ? (
-              <FaChevronDown className="w-3 h-3 text-gray-600" />
+              <FaChevronDown className="w-3 h-3 text-gray-600 dark:text-gray-400" />
             ) : (
-              <FaChevronRight className="w-3 h-3 text-gray-600" />
+              <FaChevronRight className="w-3 h-3 text-gray-600 dark:text-gray-400" />
             )}
           </button>
         )}
@@ -141,19 +145,19 @@ const CollectionItem = ({
 
         {/* Folder Icon */}
         {isExpanded ? (
-          <FaFolderOpen className="w-4 h-4 text-yellow-500 flex-shrink-0" />
+          <FaFolderOpen className="w-4 h-4 text-yellow-500 dark:text-yellow-400 flex-shrink-0" />
         ) : (
-          <FaFolder className="w-4 h-4 text-yellow-500 flex-shrink-0" />
+          <FaFolder className="w-4 h-4 text-yellow-500 dark:text-yellow-400 flex-shrink-0" />
         )}
 
         {/* Collection Name */}
-        <span className="flex-1 text-sm text-gray-800 truncate">
+        <span className="flex-1 text-sm text-gray-800 dark:text-gray-200 truncate">
           {collection.name}
         </span>
 
         {/* Team Collection Badge */}
         {collection.isTeamCollection && (
-          <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded">
+          <span className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded">
             Team
           </span>
         )}
@@ -164,10 +168,10 @@ const CollectionItem = ({
             e.stopPropagation();
             handleContextMenu(e);
           }}
-          className="p-1 hover:bg-gray-200 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+          className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded opacity-0 group-hover:opacity-100 transition-opacity"
           aria-label="More options"
         >
-          <FaEllipsisV className="w-3 h-3 text-gray-600" />
+          <FaEllipsisV className="w-3 h-3 text-gray-600 dark:text-gray-400" />
         </button>
       </div>
 
@@ -175,7 +179,7 @@ const CollectionItem = ({
       {showContextMenu && (
         <div
           ref={contextMenuRef}
-          className="fixed bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50 min-w-[180px]"
+          className="fixed bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-1 z-50 min-w-[180px]"
           style={{
             left: `${contextMenuPosition.x}px`,
             top: `${contextMenuPosition.y}px`,
@@ -186,7 +190,7 @@ const CollectionItem = ({
               onClick={() =>
                 handleMenuAction(() => onCreateSubcollection(collection.id))
               }
-              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               Create Subcollection
             </button>
@@ -195,13 +199,13 @@ const CollectionItem = ({
             onClick={() =>
               handleMenuAction(() => onRename(collection.id, collection.name))
             }
-            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+            className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
             Rename
           </button>
           <button
             onClick={() => handleMenuAction(() => onDelete(collection.id))}
-            className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+            className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
           >
             Delete
           </button>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { usePreferences } from "../../contexts/PreferencesContext";
 import useCollections from "../../hooks/useCollections";
 import { SUPPORTED_LANGUAGES } from "../../utils/languageDetector";
 import { TagInput } from "../shared";
@@ -21,14 +22,18 @@ const AUTO_SAVE_DELAY = 2000; // 2 seconds
 
 const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
   const { user: currentUser } = useAuth();
+  const { preferences } = usePreferences();
   const { collections } = useCollections();
+
+  // Get default language from preferences
+  const defaultLanguage = preferences?.defaultLanguage || "javascript";
 
   // Form state
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     code: "",
-    language: "javascript",
+    language: defaultLanguage,
     tags: [],
     collectionId: null,
     metadata: {
@@ -56,7 +61,7 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
         title: snippet.title || "",
         description: snippet.description || "",
         code: snippet.code || "",
-        language: snippet.language || "javascript",
+        language: snippet.language || defaultLanguage,
         tags: snippet.tags || [],
         collectionId: snippet.collectionId || null,
         metadata: {
@@ -75,9 +80,15 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
         } catch (error) {
           console.error("Error loading draft:", error);
         }
+      } else {
+        // Set default language from preferences for new snippets
+        setFormData((prev) => ({
+          ...prev,
+          language: defaultLanguage,
+        }));
       }
     }
-  }, [snippet, mode, draftKey]);
+  }, [snippet, mode, draftKey, defaultLanguage]);
 
   // Auto-save draft functionality
   useEffect(() => {
@@ -290,8 +301,8 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           {mode === "create" ? "Create New Snippet" : "Edit Snippet"}
         </h2>
 
@@ -300,9 +311,9 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
             >
-              Title <span className="text-red-500">*</span>
+              Title <span className="text-red-500 dark:text-red-400">*</span>
             </label>
             <input
               id="title"
@@ -310,12 +321,16 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
               value={formData.title}
               onChange={(e) => handleChange("title", e.target.value)}
               className={`w-full px-3 py-2 border ${
-                errors.title ? "border-red-300" : "border-gray-300"
-              } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                errors.title
+                  ? "border-red-300 dark:border-red-600"
+                  : "border-gray-300 dark:border-gray-600"
+              } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100`}
               placeholder="Enter snippet title"
             />
             {errors.title && (
-              <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                {errors.title}
+              </p>
             )}
           </div>
 
@@ -405,7 +420,7 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
           <div>
             <label
               htmlFor="description"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
             >
               Description
             </label>
@@ -428,7 +443,7 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
           <div>
             <label
               htmlFor="tags"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
             >
               Tags
             </label>
@@ -445,7 +460,7 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
           <div>
             <label
               htmlFor="usageNotes"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
             >
               Usage Notes
             </label>
@@ -470,7 +485,7 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
           <div>
             <label
               htmlFor="dependencies"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
             >
               Dependencies
             </label>
@@ -504,7 +519,7 @@ const SnippetEditor = ({ snippet, onSave, onCancel, mode = "create" }) => {
               type="button"
               onClick={handleCancel}
               disabled={loading}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Cancel
             </button>
