@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user owns the resource
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Users collection - users can only read/write their own user document
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Snippets collection - with sharing support
+    match /snippets/{snippetId} {
+      // Allow creation by authenticated users
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      
+      // Allow read if user is owner OR if snippet is marked as shared
+      // Note: We check sharing on the client side for email matching
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.userId ||
+        (resource.data.sharing != null && resource.data.sharing.isShared == true)
+      );
+      
+      // Allow update/delete only if user is owner
+      allow update, delete: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+    
+    // Collections - user-specific and team collections
+    match /collections/{collectionId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Tags collection - user-specific tags
+    match /tags/{tagId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}

@@ -1,0 +1,59 @@
+/* CodeDisplay component styles */
+
+.code-display-container {
+  position: relative;
+}
+
+.code-display-container pre {
+  margin: 0;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.code-display-container code {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #d4d4d4;
+}
+
+/* Line numbers styling */
+.line-numbers {
+  min-width: 3rem;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.line-numbers div {
+  line-height: 1.5rem;
+  font-size: 0.875rem;
+}
+
+/* Ensure highlight.js styles are applied */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0;
+  background: #1e1e1e;
+  color: #d4d4d4;
+}
+
+/* Light mode support (optional) */
+@media (prefers-color-scheme: light) {
+  .code-display-container.light-mode pre {
+    background-color: #f6f8fa;
+  }
+
+  .code-display-container.light-mode code {
+    color: #24292e;
+  }
+
+  .code-display-container.light-mode .hljs {
+    background: #f6f8fa;
+    color: #24292e;
+  }
+}
